@@ -1,3 +1,31 @@
-= HashidsRails
+= hashids_rails gem
+Use hashids.rb(https://github.com/peterhellberg/hashids.rb) to store ActiveRecord IDs in URL non-obviously. Heavily based on obfuscate_id(https://github.com/namick/obfuscate_id).
 
-This project rocks and uses MIT-LICENSE.
+== Installation
+Add the gem to your Gemfile.
++gem 'hashids_rails'+
+
+Run bundler.
++bundle install+
+
+== Usage
+In your model, add a single line.
+
++class Post < ActiveRecord::Base+
++  hash_id+
++end+
+
+== Customization
+If you want your hash ids to be different than some other website using the same plugin, you can throw a random string (salt) at hash_id to make it hash out unique ids for your app.
+
++class Post < ActiveRecord::Base+
++  hash_id salt: 'bring_your_own_salt'+
++end+
+
+== Limitations
+* This is not security. hashids_rails was created to lightly mask record id numbers for the casual user. If you need to really secure your database ids (hint, you probably don't), you need to use real encryption like AES.
+* To properly generate obfuscated urls(using hash_ids), make sure you trigger the model's to_param method by passing in the whole object rather than just the id; do this: post_path(@post) not this: post_path(@post.id).
+
+== Contributing
+=== TODO
+* write tests

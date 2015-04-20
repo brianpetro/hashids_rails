@@ -8,10 +8,10 @@ Gem::Specification.new do |s|
   s.name        = "hashids_rails"
   s.version     = HashidsRails::VERSION
   s.authors     = ["Brian Petro"]
-  s.email       = ["brian@plexm.com"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of HashidsRails."
-  s.description = "TODO: Description of HashidsRails."
+  s.email       = ["brian@linkplugapp.com"]
+  s.summary     = "Use hashids to mask ActiveRecord IDs in URL."
+  s.description = "Store ActiveRecord IDs non-obviously in URL using hashids."
+  s.homepage    = "https://github.com/brianpetro/hashids_rails"
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
