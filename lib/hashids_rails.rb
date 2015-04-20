@@ -16,7 +16,8 @@ module HashidsRails
 
   def self.show(id, salt)
     hashids = Hashids.new(salt, 3)
-    hashids.decode id
+    decoded = hashids.decode id
+    decoded[0] if decoded
   end
 
   module ClassMethods
