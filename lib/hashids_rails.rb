@@ -11,7 +11,7 @@ module HashidsRails
 
   def self.hide(id, salt)
     hashids = Hashids.new(salt, 3)
-    hashidsenncode id
+    hashids.enncode id
   end
 
   def self.show(id, salt)
