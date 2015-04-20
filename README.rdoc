@@ -3,24 +3,32 @@ Use hashids.rb(https://github.com/peterhellberg/hashids.rb) to store ActiveRecor
 
 == Installation
 Add the gem to your Gemfile.
-+gem 'hashids_rails'+
+<code>
+gem 'hashids_rails'
+</code>
 
 Run bundler.
-+bundle install+
+<code>
+bundle install
+</code>
 
 == Usage
 In your model, add a single line.
 
-+class Post < ActiveRecord::Base+
-+  hash_id+
-+end+
+<code>
+class Post < ActiveRecord::Base
+  hash_id
+end
+</code>
 
 == Customization
 If you want your hash ids to be different than some other website using the same plugin, you can throw a random string (salt) at hash_id to make it hash out unique ids for your app.
 
-+class Post < ActiveRecord::Base+
-+  hash_id salt: 'bring_your_own_salt'+
-+end+
+<code>
+class Post < ActiveRecord::Base
+  hash_id salt: 'bring_your_own_salt'
+end
+</code>
 
 == Limitations
 * This is not security. hashids_rails was created to lightly mask record id numbers for the casual user. If you need to really secure your database ids (hint, you probably don't), you need to use real encryption like AES.
