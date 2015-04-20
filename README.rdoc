@@ -5,31 +5,31 @@ Use hashids.rb(https://github.com/peterhellberg/hashids.rb) to store ActiveRecor
 Add the gem to your Gemfile.
 
 <tt>
-gem 'hashids_rails'
+  gem 'hashids_rails'
 </tt>
 
 Run bundler.
 
 <tt>
-bundle install
+  bundle install
 </tt>
 
 == Usage
 In your model, add a single line.
 
 <tt>
-class Post < ActiveRecord::Base
-  hash_id
-end
+  class Post < ActiveRecord::Base
+    hash_id
+  end
 </tt>
 
 == Customization
 If you want your hash ids to be different than some other website using the same plugin, you can throw a random string (salt) at hash_id to make it hash out unique ids for your app.
 
 <tt>
-class Post < ActiveRecord::Base
-  hash_id salt: 'bring_your_own_salt'
-end
+  class Post < ActiveRecord::Base
+    hash_id salt: 'bring_your_own_salt'
+  end
 </tt>
 
 == Limitations
