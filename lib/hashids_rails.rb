@@ -6,16 +6,18 @@ module HashidsRails
     extend ClassMethods
     include InstanceMethods
     cattr_accessor :hash_salt
+    cattr_accessor :hash_size
     self.hash_salt = (options[:salt] || default_salt)
+    self.hash_size = (options[:size] || default_size)
   end
 
-  def self.hide(id, salt)
-    hashids = Hashids.new(salt, 3)
+  def self.hide(id, salt, size)
+    hashids = Hashids.new(salt, size)
     hashids.encode id
   end
 
-  def self.show(id, salt)
-    hashids = Hashids.new(salt, 3)
+  def self.show(id, salt, size)
+    hashids = Hashids.new(salt, size)
     decoded = hashids.decode id
     decoded[0] if decoded
   end
@@ -39,7 +41,7 @@ module HashidsRails
     end
 
     def dehash_id(hashed_id)
-      HashidsRails.show(hashed_id, self.hash_salt)
+      HashidsRails.show(hashed_id, self.hash_salt, self.hash_size)
     end
 
     # Generate a default salt from the Model name
@@ -48,11 +50,15 @@ module HashidsRails
     def default_salt
       name
     end
+
+    def default_size
+      3
+    end
   end
 
   module InstanceMethods
     def to_param
-      HashidsRails.hide(self.id, self.class.hash_salt)
+      HashidsRails.hide(self.id, self.class.hash_salt, self.class.hash_size)
     end
 
     # Override ActiveRecord::Persistence#reload
