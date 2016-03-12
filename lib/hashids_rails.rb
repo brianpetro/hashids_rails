@@ -6,16 +6,20 @@ module HashidsRails
     extend ClassMethods
     include InstanceMethods
     cattr_accessor :hash_salt
+    cattr_accessor :hash_min_hash_length
+    cattr_accessor :hash_alphabet
     self.hash_salt = (options[:salt] || default_salt)
+    self.hash_min_hash_length = (options[:min_hash_length] || 3)
+    self.hash_alphabet = (options[:alphabet] || Hashids::DEFAULT_ALPHABET)
   end
 
-  def self.hide(id, salt)
-    hashids = Hashids.new(salt, 3)
+  def self.hide(id, salt, min_hash_length, alphabet)
+    hashids = Hashids.new(salt, min_hash_length, alphabet)
     hashids.encode id
   end
 
-  def self.show(id, salt)
-    hashids = Hashids.new(salt, 3)
+  def self.show(id, salt, min_hash_length, alphabet)
+    hashids = Hashids.new(salt, min_hash_length, alphabet)
     decoded = hashids.decode id
     decoded[0] if decoded
   end
@@ -39,7 +43,12 @@ module HashidsRails
     end
 
     def dehash_id(hashed_id)
-      HashidsRails.show(hashed_id, self.hash_salt)
+      HashidsRails.show(
+        hashed_id,
+        self.hash_salt,
+        self.hash_min_hash_length,
+        self.hash_alphabet
+      )
     end
 
     # Generate a default salt from the Model name
@@ -52,7 +61,16 @@ module HashidsRails
 
   module InstanceMethods
     def to_param
-      HashidsRails.hide(self.id, self.class.hash_salt)
+      hashed_id
+    end
+
+    def hashed_id
+      HashidsRails.hide(
+        self.id,
+        self.class.hash_salt,
+        self.class.hash_min_hash_length,
+        self.class.hash_alphabet
+      )
     end
 
     # Override ActiveRecord::Persistence#reload
