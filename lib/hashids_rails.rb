@@ -61,6 +61,10 @@ module HashidsRails
 
   module InstanceMethods
     def to_param
+      hashed_id
+    end
+
+    def hashed_id
       HashidsRails.hide(
         self.id,
         self.class.hash_salt,
