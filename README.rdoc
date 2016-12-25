@@ -21,10 +21,10 @@ In your model, add a single line.
   end
 
 == Customization
-If you want your hash ids to be different than some other website using the same plugin, you can throw a random string (salt) at hash_id to make it hash out unique ids for your app.
+If you want your hash ids to be different than some other website using the same plugin, you can throw a random string (salt) at hash_id to make it hash out unique ids for your app. You can also customize the minimum hash length.
 
   class Post < ActiveRecord::Base
-    hash_id salt: 'bring_your_own_salt'
+    hash_id salt: 'bring_your_own_salt', min_length: 3
   end
 
 == Limitations
