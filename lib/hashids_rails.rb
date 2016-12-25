@@ -38,8 +38,8 @@ module HashidsRails
       true
     end
 
-    def dehash_id(hashed_id)
-      HashidsRails.show(hashed_id, self.hash_salt)
+    def dehash_id(input)
+      input.is_a?(Fixnum) ? input : HashidsRails.show(input, self.hash_salt)
     end
 
     # Generate a default salt from the Model name
